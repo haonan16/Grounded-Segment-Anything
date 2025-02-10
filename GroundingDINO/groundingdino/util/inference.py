@@ -229,7 +229,7 @@ class Model:
             boxes: torch.Tensor,
             logits: torch.Tensor
     ) -> sv.Detections:
-        boxes = boxes * torch.Tensor([source_w, source_h, source_w, source_h])
+        boxes = boxes * torch.Tensor([source_w, source_h, source_w, source_h]).to(boxes.device)
         xyxy = box_convert(boxes=boxes, in_fmt="cxcywh", out_fmt="xyxy").numpy()
         confidence = logits.numpy()
         return sv.Detections(xyxy=xyxy, confidence=confidence)
